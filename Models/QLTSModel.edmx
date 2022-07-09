@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QLTrangSucModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bill_detail_ban">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_bills_ban" Type="int" />
+          <Property Name="id_sp" Type="int" />
+          <Property Name="sl" Type="int" />
+        </EntityType>
+        <EntityType Name="bills_ban">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_kh" Type="int" />
+          <Property Name="date_order" Type="datetime" />
+          <Property Name="tong_tien" Type="float" />
+          <Property Name="payment" Type="nchar" MaxLength="10" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="note" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="khach_hang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten_kh" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="dia_chi" Type="nvarchar" MaxLength="100" />
+          <Property Name="sdt" Type="nchar" MaxLength="10" />
+          <Property Name="note" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="loai_sp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenloai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="nha_cung_cap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten_ncc" Type="nvarchar" MaxLength="100" />
+          <Property Name="diachi_ncc" Type="nvarchar" MaxLength="200" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="sdt" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="nhan_vien">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten_nhanvien" Type="nvarchar" MaxLength="50" />
+          <Property Name="gioitinh" Type="nvarchar" MaxLength="3" />
+          <Property Name="ngaysinh" Type="datetime" />
+          <Property Name="quequan" Type="nvarchar" MaxLength="100" />
+          <Property Name="sdt" Type="nchar" MaxLength="10" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="capbac" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="san_pham">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="id_loai_sp" Type="int" />
+          <Property Name="id_ncc" Type="int" />
+          <Property Name="mota_sp" Type="nvarchar" MaxLength="255" />
+          <Property Name="unit_price" Type="float" />
+          <Property Name="so_luong" Type="int" />
+          <Property Name="image" Type="nvarchar" MaxLength="255" />
+          <Property Name="kich_thuoc" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="slide">
+          <Key>
+            <PropertyRef Name="id_slide" />
+          </Key>
+          <Property Name="id_slide" Type="int" Nullable="false" />
+          <Property Name="link" Type="nvarchar" MaxLength="100" />
+          <Property Name="image" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="users_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" />
+          <Property Name="phone" Type="nchar" MaxLength="10" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="image" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_bill_detail_ban_bills_ban">
+          <End Role="bills_ban" Type="Self.bills_ban" Multiplicity="0..1" />
+          <End Role="bill_detail_ban" Type="Self.bill_detail_ban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bills_ban">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail_ban">
+              <PropertyRef Name="id_bills_ban" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_detail_ban_san_pham">
+          <End Role="san_pham" Type="Self.san_pham" Multiplicity="0..1" />
+          <End Role="bill_detail_ban" Type="Self.bill_detail_ban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="san_pham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail_ban">
+              <PropertyRef Name="id_sp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bills_ban_khach_hang">
+          <End Role="khach_hang" Type="Self.khach_hang" Multiplicity="0..1" />
+          <End Role="bills_ban" Type="Self.bills_ban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khach_hang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills_ban">
+              <PropertyRef Name="id_kh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_san_pham_loai_sp">
+          <End Role="loai_sp" Type="Self.loai_sp" Multiplicity="0..1" />
+          <End Role="san_pham" Type="Self.san_pham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loai_sp">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="san_pham">
+              <PropertyRef Name="id_loai_sp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_san_pham_nha_cung_cap">
+          <End Role="nha_cung_cap" Type="Self.nha_cung_cap" Multiplicity="0..1" />
+          <End Role="san_pham" Type="Self.san_pham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nha_cung_cap">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="san_pham">
+              <PropertyRef Name="id_ncc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLTrangSucModelStoreContainer">
+          <EntitySet Name="bill_detail_ban" EntityType="Self.bill_detail_ban" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bills_ban" EntityType="Self.bills_ban" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="khach_hang" EntityType="Self.khach_hang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loai_sp" EntityType="Self.loai_sp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nha_cung_cap" EntityType="Self.nha_cung_cap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nhan_vien" EntityType="Self.nhan_vien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="san_pham" EntityType="Self.san_pham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="slide" EntityType="Self.slide" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_bill_detail_ban_bills_ban" Association="Self.FK_bill_detail_ban_bills_ban">
+            <End Role="bills_ban" EntitySet="bills_ban" />
+            <End Role="bill_detail_ban" EntitySet="bill_detail_ban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_detail_ban_san_pham" Association="Self.FK_bill_detail_ban_san_pham">
+            <End Role="san_pham" EntitySet="san_pham" />
+            <End Role="bill_detail_ban" EntitySet="bill_detail_ban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bills_ban_khach_hang" Association="Self.FK_bills_ban_khach_hang">
+            <End Role="khach_hang" EntitySet="khach_hang" />
+            <End Role="bills_ban" EntitySet="bills_ban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_san_pham_loai_sp" Association="Self.FK_san_pham_loai_sp">
+            <End Role="loai_sp" EntitySet="loai_sp" />
+            <End Role="san_pham" EntitySet="san_pham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_san_pham_nha_cung_cap" Association="Self.FK_san_pham_nha_cung_cap">
+            <End Role="nha_cung_cap" EntitySet="nha_cung_cap" />
+            <End Role="san_pham" EntitySet="san_pham" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLTrangSucModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QLTrangSucEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bill_detail_ban" EntityType="QLTrangSucModel.bill_detail_ban" />
+          <EntitySet Name="bills_ban" EntityType="QLTrangSucModel.bills_ban" />
+          <EntitySet Name="khach_hang" EntityType="QLTrangSucModel.khach_hang" />
+          <EntitySet Name="loai_sp" EntityType="QLTrangSucModel.loai_sp" />
+          <EntitySet Name="nha_cung_cap" EntityType="QLTrangSucModel.nha_cung_cap" />
+          <EntitySet Name="nhan_vien" EntityType="QLTrangSucModel.nhan_vien" />
+          <EntitySet Name="san_pham" EntityType="QLTrangSucModel.san_pham" />
+          <EntitySet Name="slides" EntityType="QLTrangSucModel.slide" />
+          <EntitySet Name="users" EntityType="QLTrangSucModel.user" />
+          <AssociationSet Name="FK_bill_detail_ban_bills_ban" Association="QLTrangSucModel.FK_bill_detail_ban_bills_ban">
+            <End Role="bills_ban" EntitySet="bills_ban" />
+            <End Role="bill_detail_ban" EntitySet="bill_detail_ban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_detail_ban_san_pham" Association="QLTrangSucModel.FK_bill_detail_ban_san_pham">
+            <End Role="san_pham" EntitySet="san_pham" />
+            <End Role="bill_detail_ban" EntitySet="bill_detail_ban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bills_ban_khach_hang" Association="QLTrangSucModel.FK_bills_ban_khach_hang">
+            <End Role="khach_hang" EntitySet="khach_hang" />
+            <End Role="bills_ban" EntitySet="bills_ban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_san_pham_loai_sp" Association="QLTrangSucModel.FK_san_pham_loai_sp">
+            <End Role="loai_sp" EntitySet="loai_sp" />
+            <End Role="san_pham" EntitySet="san_pham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_san_pham_nha_cung_cap" Association="QLTrangSucModel.FK_san_pham_nha_cung_cap">
+            <End Role="nha_cung_cap" EntitySet="nha_cung_cap" />
+            <End Role="san_pham" EntitySet="san_pham" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="bill_detail_ban">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_bills_ban" Type="Int32" />
+          <Property Name="id_sp" Type="Int32" />
+          <Property Name="sl" Type="Int32" />
+          <NavigationProperty Name="bills_ban" Relationship="QLTrangSucModel.FK_bill_detail_ban_bills_ban" FromRole="bill_detail_ban" ToRole="bills_ban" />
+          <NavigationProperty Name="san_pham" Relationship="QLTrangSucModel.FK_bill_detail_ban_san_pham" FromRole="bill_detail_ban" ToRole="san_pham" />
+        </EntityType>
+        <EntityType Name="bills_ban">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_kh" Type="Int32" />
+          <Property Name="date_order" Type="DateTime" Precision="3" />
+          <Property Name="tong_tien" Type="Double" />
+          <Property Name="payment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bill_detail_ban" Relationship="QLTrangSucModel.FK_bill_detail_ban_bills_ban" FromRole="bills_ban" ToRole="bill_detail_ban" />
+          <NavigationProperty Name="khach_hang" Relationship="QLTrangSucModel.FK_bills_ban_khach_hang" FromRole="bills_ban" ToRole="khach_hang" />
+        </EntityType>
+        <EntityType Name="khach_hang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten_kh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dia_chi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bills_ban" Relationship="QLTrangSucModel.FK_bills_ban_khach_hang" FromRole="khach_hang" ToRole="bills_ban" />
+        </EntityType>
+        <EntityType Name="loai_sp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenloai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="san_pham" Relationship="QLTrangSucModel.FK_san_pham_loai_sp" FromRole="loai_sp" ToRole="san_pham" />
+        </EntityType>
+        <EntityType Name="nha_cung_cap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten_ncc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="diachi_ncc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="san_pham" Relationship="QLTrangSucModel.FK_san_pham_nha_cung_cap" FromRole="nha_cung_cap" ToRole="san_pham" />
+        </EntityType>
+        <EntityType Name="nhan_vien">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten_nhanvien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gioitinh" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="ngaysinh" Type="DateTime" Precision="3" />
+          <Property Name="quequan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="capbac" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="san_pham">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="id_loai_sp" Type="Int32" />
+          <Property Name="id_ncc" Type="Int32" />
+          <Property Name="mota_sp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="unit_price" Type="Double" />
+          <Property Name="so_luong" Type="Int32" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="kich_thuoc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bill_detail_ban" Relationship="QLTrangSucModel.FK_bill_detail_ban_san_pham" FromRole="san_pham" ToRole="bill_detail_ban" />
+          <NavigationProperty Name="loai_sp" Relationship="QLTrangSucModel.FK_san_pham_loai_sp" FromRole="san_pham" ToRole="loai_sp" />
+          <NavigationProperty Name="nha_cung_cap" Relationship="QLTrangSucModel.FK_san_pham_nha_cung_cap" FromRole="san_pham" ToRole="nha_cung_cap" />
+        </EntityType>
+        <EntityType Name="slide">
+          <Key>
+            <PropertyRef Name="id_slide" />
+          </Key>
+          <Property Name="id_slide" Type="Int32" Nullable="false" />
+          <Property Name="link" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="users_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_bill_detail_ban_bills_ban">
+          <End Type="QLTrangSucModel.bills_ban" Role="bills_ban" Multiplicity="0..1" />
+          <End Type="QLTrangSucModel.bill_detail_ban" Role="bill_detail_ban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bills_ban">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail_ban">
+              <PropertyRef Name="id_bills_ban" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_detail_ban_san_pham">
+          <End Type="QLTrangSucModel.san_pham" Role="san_pham" Multiplicity="0..1" />
+          <End Type="QLTrangSucModel.bill_detail_ban" Role="bill_detail_ban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="san_pham">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail_ban">
+              <PropertyRef Name="id_sp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bills_ban_khach_hang">
+          <End Type="QLTrangSucModel.khach_hang" Role="khach_hang" Multiplicity="0..1" />
+          <End Type="QLTrangSucModel.bills_ban" Role="bills_ban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="khach_hang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bills_ban">
+              <PropertyRef Name="id_kh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_san_pham_loai_sp">
+          <End Type="QLTrangSucModel.loai_sp" Role="loai_sp" Multiplicity="0..1" />
+          <End Type="QLTrangSucModel.san_pham" Role="san_pham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="loai_sp">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="san_pham">
+              <PropertyRef Name="id_loai_sp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_san_pham_nha_cung_cap">
+          <End Type="QLTrangSucModel.nha_cung_cap" Role="nha_cung_cap" Multiplicity="0..1" />
+          <End Type="QLTrangSucModel.san_pham" Role="san_pham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nha_cung_cap">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="san_pham">
+              <PropertyRef Name="id_ncc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLTrangSucModelStoreContainer" CdmEntityContainer="QLTrangSucEntities">
+          <EntitySetMapping Name="bill_detail_ban">
+            <EntityTypeMapping TypeName="QLTrangSucModel.bill_detail_ban">
+              <MappingFragment StoreEntitySet="bill_detail_ban">
+                <ScalarProperty Name="sl" ColumnName="sl" />
+                <ScalarProperty Name="id_sp" ColumnName="id_sp" />
+                <ScalarProperty Name="id_bills_ban" ColumnName="id_bills_ban" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bills_ban">
+            <EntityTypeMapping TypeName="QLTrangSucModel.bills_ban">
+              <MappingFragment StoreEntitySet="bills_ban">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="tong_tien" ColumnName="tong_tien" />
+                <ScalarProperty Name="date_order" ColumnName="date_order" />
+                <ScalarProperty Name="id_kh" ColumnName="id_kh" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="khach_hang">
+            <EntityTypeMapping TypeName="QLTrangSucModel.khach_hang">
+              <MappingFragment StoreEntitySet="khach_hang">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="dia_chi" ColumnName="dia_chi" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ten_kh" ColumnName="ten_kh" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loai_sp">
+            <EntityTypeMapping TypeName="QLTrangSucModel.loai_sp">
+              <MappingFragment StoreEntitySet="loai_sp">
+                <ScalarProperty Name="tenloai" ColumnName="tenloai" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nha_cung_cap">
+            <EntityTypeMapping TypeName="QLTrangSucModel.nha_cung_cap">
+              <MappingFragment StoreEntitySet="nha_cung_cap">
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="diachi_ncc" ColumnName="diachi_ncc" />
+                <ScalarProperty Name="ten_ncc" ColumnName="ten_ncc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nhan_vien">
+            <EntityTypeMapping TypeName="QLTrangSucModel.nhan_vien">
+              <MappingFragment StoreEntitySet="nhan_vien">
+                <ScalarProperty Name="capbac" ColumnName="capbac" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="quequan" ColumnName="quequan" />
+                <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+                <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+                <ScalarProperty Name="ten_nhanvien" ColumnName="ten_nhanvien" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="san_pham">
+            <EntityTypeMapping TypeName="QLTrangSucModel.san_pham">
+              <MappingFragment StoreEntitySet="san_pham">
+                <ScalarProperty Name="kich_thuoc" ColumnName="kich_thuoc" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="so_luong" ColumnName="so_luong" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="mota_sp" ColumnName="mota_sp" />
+                <ScalarProperty Name="id_ncc" ColumnName="id_ncc" />
+                <ScalarProperty Name="id_loai_sp" ColumnName="id_loai_sp" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="slides">
+            <EntityTypeMapping TypeName="QLTrangSucModel.slide">
+              <MappingFragment StoreEntitySet="slide">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="id_slide" ColumnName="id_slide" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="QLTrangSucModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="users_name" ColumnName="users_name" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

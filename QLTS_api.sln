@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLTS_api", "QLTS_api.csproj", "{6184452F-B0F4-4748-B382-7C50C2D6DEB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6184452F-B0F4-4748-B382-7C50C2D6DEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6184452F-B0F4-4748-B382-7C50C2D6DEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6184452F-B0F4-4748-B382-7C50C2D6DEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6184452F-B0F4-4748-B382-7C50C2D6DEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AE7E51C-3904-4057-AA35-28ACE1302006}
+	EndGlobalSection
+EndGlobal
